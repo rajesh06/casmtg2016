@@ -1,0 +1,7 @@
+*.pdf
+parameter_risk.snm
+*.gz
+parameter_risk.toc
+*.out
+parameter_risk.nav
+parameter_risk.aux
