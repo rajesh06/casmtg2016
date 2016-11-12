@@ -46,7 +46,7 @@
 
 \title{A Note on Parameter Risk}
 \subtitle{Gary Venter \& \\
-	Rajesh Sahasrabuddhe, \textit{in absentia})}
+	Rajesh Sahasrabuddhe \textit{(in absentia})}
 \date{
 	CAS Annual Meeting 2016\\
 	Session Code:P-5\\
@@ -71,7 +71,7 @@
 \begin{itemize}
 	\item<1-> Why is parameter risk important?
 	\item<2-> Where does parameter risk exist?
-	\item<3-> How do I estimate parameter uncertainty?
+	\item<3-> How do I quantify parameter uncertainty?
 	\item<4-> How can parameter risk be included in actuarial models?		
 \end{itemize}
 \end{frame}
@@ -81,10 +81,10 @@
 \section{The Need to Include Parameter Risk}
 \begin{frame}{Why is Parameter Risk Important?}
 	\begin{enumerate}
-		\item<1-> Systematic risk
+		\item<1-> A form of systematic risk
 		\begin{itemize}
 			\item<2-> Does not diversify with volume (exacerbated by volume)
-			\item<2-> May diversify across products / portfolios
+			\item<2-> But may diversify across products / portfolios
 		\end{itemize}
 		\item<3-> Inherent in all actuarial models		
 	\end{enumerate}
@@ -93,22 +93,24 @@
 
 %-----------------------------------------------------------------------------------------------------------------------
 \section{Sources of Parameter Risk}
-\begin{frame}{Where Does Parameter Risk Exist}
+\begin{frame}{Where Does Parameter Risk Exist --  Basically Wherever You Estimate Parameters}
 	\begin{enumerate}
-		\item<1-> Regression Models (Dependency Relationships)
+		\item<1-> Regression Models (Least Squares)
 			\begin{itemize}
-				\item<1-> Cost ~ Time (i.e. Trend)
-				\item<1-> Cost ~ Claim features (i.e. Predictive Modeling)
+				\item<1-> Cost $\thicksim$ Time (i.e. Trend)
+				\item<1-> Cost $\thicksim$ Claim features (i.e. Predictive Modeling)
 			\end{itemize}
-		\item<2-> Loss distributions
+		\item<2-> MLE -- Such as Loss distributions, Nonlinear Models
 			\begin{itemize}
 				\item<2-> Frequency models
 				\item<2-> Severity models
+				\item<2-> Aggregate loss models
 			\end{itemize}
-		\item<3-> Model Free Methods
+		\item<3-> Bayesian Estimation
 		\begin{itemize}
-			\item<2-> Selected development factors in a chain ladder model
-			\item<2-> \textit{a priori} loss ratios in a B-F model
+			\item<2-> Traditionally done using conjugate priors
+			\item<2-> Now simulate sample of parameter sets by MCMC $\ne$ 1100 1100
+			\item<2-> Don't need to find conjugate priors -- any prior can work
 		\end{itemize}		
 	\end{enumerate}
 \end{frame}
@@ -116,41 +118,41 @@
 
 %-----------------------------------------------------------------------------------------------------------------------
 \section{Estimation of Parameter Risk}
-\begin{frame}{How do I estimate parameter uncertainty?}
+\begin{frame}{How Do I Quantify Parameter Uncertainty?}
 	\begin{enumerate}
-		\item<1-> Regression Models)
+		\item<1-> Regression Models
 		\begin{itemize}
-			\item<1-> Consider the parameter of interest
-			\item<1-> Trend: Use the error of the coefficient of time
-			\item<1-> Predictive Modeling: Use the error of the prediction of the outcome
+			\item<1-> Combines variance of the residuals and variances of each independent variable
+			\item<1-> Each parameter estimate then t-distributed with combined variance
+			\item<1-> Similarly the distribution of the fitted points is also t-distributed
 		\end{itemize}
 		
-		\item<2-> Loss distributions
+		\item<2-> MLE Estimation Uncertainty
 		\begin{itemize}
-			\item<2-> Large sample sizes ~ Normal\\
-				Mean = MLE\\
-				Variance via Information Matrix		
-			\item<2-> Limited sample size ~ Gamma
-			\item<2-> Bayes' theorem\\
-				Conjugate Priors\\
-				via MCMC Methods
+			\item<2-> Large sample sizes: parameter estimates $\thicksim$ Normal\\
+				Mean = MLE, minimizing negative loglikelihood (NLL)\\
+				Normal covariance matrix via Information Matrix: matrix of all combinations of 2nd partial derivatives of the NLL	
+			\item<2-> With limited sample size often better to use same mean and covariance matrix but assume each parameter is gamma distributed -- with normal copula for correlations
+		\end{itemize}	
+		
+			\item<3-> Bayesian Estimation
+					\begin{itemize}
+			\item<3-> Posterior distributions for the parameters, including correlations, come out of the process directly, either in closed form or simulated
 		\end{itemize}	
 
-		\item<3-> Model Free Methods
-		\begin{itemize}
-			\item<3-> Bootstrap
-		\end{itemize}		
+
 	\end{enumerate}
 \end{frame}
 %-----------------------------------------------------------------------------------------------------------------------
 
 %-----------------------------------------------------------------------------------------------------------------------
 \section{Consideration of Parameter Risk}
-\begin{frame}{How can parameter risk be included in actuarial models?}
+\begin{frame}{How Can Parameter Risk Be Included in Actuarial Modeling?}
 	\begin{itemize}
-		\item<1-> For most applications, model uncertainty is developed via simulation
+		\item<1-> For most applications, model uncertainty is developed via simulation of the distribution of residuals
 		\item<2-> BUT: The simulation often assumes that the parameters are known with certainty
-		\item<3-> It is straightforward to FIRST simulate the parameter and THEN simulate the outcome of interest
+		\item<3-> It is straightforward to FIRST simulate the parameters and THEN simulate the outcome of interest
+		\item<3-> Even if the process risk diversifies away, the total risk does not, due to including parameter uncertainty
 	\end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------------------------------------------------
