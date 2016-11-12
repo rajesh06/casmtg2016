@@ -15,46 +15,47 @@
 \usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
+\usepackage{xcolor}
 \usetikzlibrary{decorations.fractals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\useoutertheme[subsection=false]{miniframes}
-\useinnertheme{default}
-%\usefonttheme{serif}
-\usepackage{avant}
+\usetheme[?options?]{Berkeley}
+\usecolortheme{sidebartab}
 
-\setbeamerfont{title like}{shape=\scshape}
-\setbeamerfont{frametitle}{shape=\scshape}
+\definecolor{ltblue}{rgb}{0.61328125, 0.875, 0.92578125}
+\definecolor{dkblue}{rgb}{0, 0.171875, 0.46484375}
+\definecolor{mygray}{rgb}{0.74609375, 0.74609375, 0.74609375}
+\definecolor{turq}{rgb}{0, 0.5390625, 0.69921875}
 
-\setbeamercolor*{lower separation line head}{bg=teal}%DeepSkyBlue4} 
-\setbeamercolor*{normal text}{fg=darkgray,bg=white} 
-\setbeamercolor*{alerted text}{fg=red} 
-\setbeamercolor*{example text}{fg=black} 
-\setbeamercolor*{structure}{fg=black} 
- 
-\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
 
-\renewcommand{\(}{\begin{columns}}
-\renewcommand{\)}{\end{columns}}
-\newcommand{\<}[1]{\begin{column}{#1}}
-\renewcommand{\>}{\end{column}}
-
-\setbeamertemplate{sidebar right}{}
 \setbeamertemplate{footline}{%
-\hfill\usebeamertemplate***{navigation symbols}
-\hspace{1cm}\insertframenumber{}/\inserttotalframenumber}
+	\hfill\usebeamertemplate***{navigation symbols}
+	\hspace{1cm}\insertframenumber{}/\inserttotalframenumber
+}
+
+\setbeamercolor{frametitle}{bg=dkblue}
+\setbeamercolor{sidebar}{bg=dkblue}
+\setbeamercolor{logo}{bg=dkblue}
+\setbeamercolor*{item}{fg=turq}
+\setbeamercolor{title}{bg=mygray, fg=black}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[Recent]{A Note on Parameter Risk}
-\subtitle{Gary Venter -- CAS Annual Meeting 2016}
-\date{}
+\title{A Note on Parameter Risk}
+\subtitle{Gary Venter \& \\
+	Rajesh Sahasrabuddhe, \textit{in absentia})}
+\date{
+	CAS Annual Meeting 2016\\
+	Session Code:P-5\\
+	Wednesday, November 16\\
+	8:00 AM - 9:15 AM	
+	}
 
 \begin{document}
-
+\section{Main Part}
 %\logo{\includegraphics[height=0.8cm]{chartis.eps}\vspace{20pt}}
 \begin{frame}
 \maketitle
@@ -63,12 +64,105 @@
 %\begin{textblock*}{100mm}(.85\textwidth,-1cm)
 %\includegraphics[height=1cm,width=2cm]{chartis.eps}
 %\end{textblock*}}
+
 %-----------------------------------------------------------------------------------------------------------------------
- \begin{frame}{Introduction}
-Hello World
+\section{Agenda}
+\begin{frame}{Agenda}
+\begin{itemize}
+	\item<1-> Why is parameter risk important?
+	\item<2-> Where does parameter risk exist?
+	\item<3-> How do I estimate parameter uncertainty?
+	\item<4-> How can parameter risk be included in actuarial models?		
+\end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------------------------------------------------
-%___________________
+
+%-----------------------------------------------------------------------------------------------------------------------
+\section{The Need to Include Parameter Risk}
+\begin{frame}{Why is Parameter Risk Important?}
+	\begin{enumerate}
+		\item<1-> Systematic risk
+		\begin{itemize}
+			\item<2-> Does not diversify with volume (exacerbated by volume)
+			\item<2-> May diversify across products / portfolios
+		\end{itemize}
+		\item<3-> Inherent in all actuarial models		
+	\end{enumerate}
+\end{frame}
+%-----------------------------------------------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------------------------------------------
+\section{Sources of Parameter Risk}
+\begin{frame}{Where Does Parameter Risk Exist}
+	\begin{enumerate}
+		\item<1-> Regression Models (Dependency Relationships)
+			\begin{itemize}
+				\item<1-> Cost ~ Time (i.e. Trend)
+				\item<1-> Cost ~ Claim features (i.e. Predictive Modeling)
+			\end{itemize}
+		\item<2-> Loss distributions
+			\begin{itemize}
+				\item<2-> Frequency models
+				\item<2-> Severity models
+			\end{itemize}
+		\item<3-> Model Free Methods
+		\begin{itemize}
+			\item<2-> Selected development factors in a chain ladder model
+			\item<2-> \textit{a priori} loss ratios in a B-F model
+		\end{itemize}		
+	\end{enumerate}
+\end{frame}
+%-----------------------------------------------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------------------------------------------
+\section{Estimation of Parameter Risk}
+\begin{frame}{How do I estimate parameter uncertainty?}
+	\begin{enumerate}
+		\item<1-> Regression Models)
+		\begin{itemize}
+			\item<1-> Consider the parameter of interest
+			\item<1-> Trend: Use the error of the coefficient of time
+			\item<1-> Predictive Modeling: Use the error of the prediction of the outcome
+		\end{itemize}
+		
+		\item<2-> Loss distributions
+		\begin{itemize}
+			\item<2-> Large sample sizes ~ Normal\\
+				Mean = MLE\\
+				Variance via Information Matrix		
+			\item<2-> Limited sample size ~ Gamma
+			\item<2-> Bayes' theorem\\
+				Conjugate Priors\\
+				via MCMC Methods
+		\end{itemize}	
+
+		\item<3-> Model Free Methods
+		\begin{itemize}
+			\item<3-> Bootstrap
+		\end{itemize}		
+	\end{enumerate}
+\end{frame}
+%-----------------------------------------------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------------------------------------------
+\section{Consideration of Parameter Risk}
+\begin{frame}{How can parameter risk be included in actuarial models?}
+	\begin{itemize}
+		\item<1-> For most applications, model uncertainty is developed via simulation
+		\item<2-> BUT: The simulation often assumes that the parameters are known with certainty
+		\item<3-> It is straightforward to FIRST simulate the parameter and THEN simulate the outcome of interest
+	\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------------------------------------------------
+\begin{frame}{Questions}
+	Venter, Gary G., and Rajesh V. Sahasrabuddhe, "A Note on Parameter Risk," Variance 9:1, 2015, pp. 54-63.
+\end{frame}
+%-----------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 \end{document}
